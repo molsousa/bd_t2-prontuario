@@ -4,6 +4,15 @@
  */
 package prontuario.view;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import prontuario.model.*;
+import prontuario.dao.*;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author molsousa
@@ -33,27 +42,27 @@ public class viewPaciente extends javax.swing.JFrame {
         nroPacienteField = new javax.swing.JTextField();
         jButtonConfForm = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextFieldDataNascimento = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextFieldEstCivil = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jTextFieldDocumento = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        jTextFieldEndereco = new javax.swing.JTextField();
+        jTextFieldSexo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jListEmails = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jListTelefones = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableConsultas = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableExames = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -63,56 +72,57 @@ public class viewPaciente extends javax.swing.JFrame {
         nroPacienteField.addActionListener(this::nroPacienteFieldActionPerformed);
 
         jButtonConfForm.setText("Ok");
+        jButtonConfForm.addActionListener(this::jButtonConfFormActionPerformed);
 
         jLabel2.setText("Nome");
 
-        jTextField1.setEditable(false);
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
+        jTextFieldNome.setEditable(false);
+        jTextFieldNome.addActionListener(this::jTextFieldNomeActionPerformed);
 
         jLabel3.setText("Data de nascimento");
 
-        jTextField2.setEditable(false);
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
+        jTextFieldDataNascimento.setEditable(false);
+        jTextFieldDataNascimento.addActionListener(this::jTextFieldDataNascimentoActionPerformed);
 
         jLabel4.setText("Estado civil");
 
-        jTextField3.setEditable(false);
-        jTextField3.addActionListener(this::jTextField3ActionPerformed);
+        jTextFieldEstCivil.setEditable(false);
+        jTextFieldEstCivil.addActionListener(this::jTextFieldEstCivilActionPerformed);
 
         jLabel5.setText("Documento");
 
-        jTextField4.setEditable(false);
-        jTextField4.addActionListener(this::jTextField4ActionPerformed);
+        jTextFieldDocumento.setEditable(false);
+        jTextFieldDocumento.addActionListener(this::jTextFieldDocumentoActionPerformed);
 
         jLabel6.setText("Endereço completo");
 
-        jTextField5.setEditable(false);
-        jTextField5.addActionListener(this::jTextField5ActionPerformed);
+        jTextFieldEndereco.setEditable(false);
+        jTextFieldEndereco.addActionListener(this::jTextFieldEnderecoActionPerformed);
 
-        jTextField6.setEditable(false);
-        jTextField6.addActionListener(this::jTextField6ActionPerformed);
+        jTextFieldSexo.setEditable(false);
+        jTextFieldSexo.addActionListener(this::jTextFieldSexoActionPerformed);
 
         jLabel7.setText("Sexo");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jListEmails.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jListEmails);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        jListTelefones.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(jListTelefones);
 
         jLabel8.setText("Telefones");
 
         jLabel9.setText("Emails");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -123,9 +133,9 @@ public class viewPaciente extends javax.swing.JFrame {
                 "Numero da Consulta", "Data", "Medico", "Diagnóstico"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(jTableConsultas);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableExames.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -136,7 +146,7 @@ public class viewPaciente extends javax.swing.JFrame {
                 "Numero do exame", "Data", "Tipo", "Resultado", "Observações"
             }
         ));
-        jScrollPane4.setViewportView(jTable2);
+        jScrollPane4.setViewportView(jTableExames);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -158,27 +168,27 @@ public class viewPaciente extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
@@ -201,23 +211,23 @@ public class viewPaciente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -250,35 +260,122 @@ public class viewPaciente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nroPacienteFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nroPacienteFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nroPacienteFieldActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextFieldDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataNascimentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_jTextFieldDataNascimentoActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTextFieldEstCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEstCivilActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTextFieldEstCivilActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jTextFieldDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDocumentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_jTextFieldDocumentoActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void jTextFieldEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEnderecoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_jTextFieldEnderecoActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void jTextFieldSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSexoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_jTextFieldSexoActionPerformed
+    
+    private void jButtonConfFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfFormActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel dftTableModelConsultas = (DefaultTableModel) jTableConsultas.getModel();
+        DefaultTableModel dftTableModelExames = (DefaultTableModel) jTableExames.getModel();
+        
+        //DefaultListModel dftListModelTelefones = (DefaultListModel) jListTelefones.getModel();
+        //DefaultListModel dftListModelEmails = (DefaultListModel) jListEmails.getModel();
+        
+        
+        
+        Paciente paciente = new Paciente();
+        Medico medico = new Medico();
+        List<String> telefones = new ArrayList<>();
+        List<String> emails = new ArrayList<>();
+        
+        PacienteDAO pDAO = new PacienteDAO();
+        EnderecoDAO endDAO = new EnderecoDAO();
+        ConsultaDAO consDAO = new ConsultaDAO();
+        MedicoDAO medDAO = new MedicoDAO();
+        ExameDAO exDAO = new ExameDAO();
+        FonePacienteDAO fonePacDAO = new FonePacienteDAO();
+        EmailPacienteDAO emailPacDAO = new EmailPacienteDAO();
+        
+        int nroPaciente = (Integer.valueOf(nroPacienteField.getText())).intValue();
+        
+        dftTableModelConsultas.setNumRows(0);
+        dftTableModelExames.setNumRows(0);
+         
+        try {
+            if(nroPaciente != 0){
+                
+                paciente = pDAO.buscarPaciente(nroPaciente);
+                jTextFieldNome.setText(paciente.getNomePaciente());
+                jTextFieldDataNascimento.setText(paciente.getDataNascimento().toString());
+                jTextFieldDocumento.setText(paciente.getDocIdentidade());
+                jTextFieldSexo.setText(paciente.getSexo());
+                jTextFieldEstCivil.setText(paciente.getEstadoCivil());
+                
+                paciente.setEndereco(endDAO.buscarEndereco(nroPaciente));
+                
+                jTextFieldEndereco.setText( 
+                        paciente.getEndereco().getTipoLogradouro()+ " " + 
+                        paciente.getEndereco().getLogradouro() + ", " + 
+                        paciente.getEndereco().getNroEndereco() + ", " + 
+                        paciente.getEndereco().getNomeBairro() + ". " + 
+                        paciente.getEndereco().getNomeCidade() + ", " +
+                        paciente.getEndereco().getSiglaUF()
+                );
+                
+                for(FonePaciente fonePaciente : fonePacDAO.buscarTelefone(nroPaciente)){
+                    telefones.add("+" + fonePaciente.getNroDDI() + " (" + fonePaciente.getNroDDD() + ") " + fonePaciente.getNroFone());
+                }
+                
+                jListTelefones.setListData(telefones.toArray(new String[0]));
+                
+                for(EmailPaciente emailPaciente : emailPacDAO.buscarEmails(nroPaciente)){
+                    emails.add(emailPaciente.getEmailEndereco());
+                }
+                
+                jListEmails.setListData(emails.toArray(new String[0]));
+                
+                for(Consulta consulta : consDAO.buscarConsultas(nroPaciente)){
+                    dftTableModelConsultas.addRow(new Object[]{
+                        consulta.getCodConsulta(),
+                        consulta.getDataConsulta(),
+                        (medDAO.buscarMedico(consulta.getIdMedico())).getNomeMedico(),
+                        consulta.getDescricaoCID()
+                    });
+                }
+                
+                for(Exame exame : exDAO.buscarExames(nroPaciente)){
+                    dftTableModelExames.addRow(new Object[]{
+                        exame.getNroExame(),
+                        exame.getDataExame(),
+                        exame.getObversacaoExame(),
+                        exame.getNomeExame(),
+                        exame.getDescricaoResultadoExame()
+                    });
+                }
+            }
+        } catch (SQLException ex) {
+            System.getLogger(viewPaciente.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_jButtonConfFormActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,21 +413,21 @@ public class viewPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jListEmails;
+    private javax.swing.JList<String> jListTelefones;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable jTableConsultas;
+    private javax.swing.JTable jTableExames;
+    private javax.swing.JTextField jTextFieldDataNascimento;
+    private javax.swing.JTextField jTextFieldDocumento;
+    private javax.swing.JTextField jTextFieldEndereco;
+    private javax.swing.JTextField jTextFieldEstCivil;
+    private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTextField jTextFieldSexo;
     private javax.swing.JTextField nroPacienteField;
     // End of variables declaration//GEN-END:variables
 }

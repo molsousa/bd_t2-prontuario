@@ -12,11 +12,20 @@ import java.sql.*;
  */
 public class Exame {
 
+    private int nroExame;
     private Date dataExame;
     private String nomeExame;
     private String descricaoResultadoExame;
     private String obversacaoExame;
 
+    public int getNroExame() {
+        return nroExame;
+    }
+
+    public void setNroExame(int nroExame) {
+        this.nroExame = nroExame;
+    }
+    
     public Date getDataExame() {
         return dataExame;
     }

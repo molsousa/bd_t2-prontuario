@@ -12,10 +12,20 @@ import java.sql.*;
  */
 public class Consulta {
 
+    private int codConsulta;
     private Date dataConsulta;
-    private int codCID;
+    private String codCID;
     private String descricaoCID;
+    private int idMedico;
 
+    public int getCodConsulta() {
+        return codConsulta;
+    }
+
+    public void setCodConsulta(int codConsulta) {
+        this.codConsulta = codConsulta;
+    }
+    
     public Date getDataConsulta() {
         return dataConsulta;
     }
@@ -24,11 +34,11 @@ public class Consulta {
         this.dataConsulta = dataConsulta;
     }
 
-    public int getCodCID() {
+    public String getCodCID() {
         return codCID;
     }
 
-    public void setCodCID(int codCID) {
+    public void setCodCID(String codCID) {
         this.codCID = codCID;
     }
 
@@ -38,6 +48,14 @@ public class Consulta {
 
     public void setDescricaoCID(String descricaoCID) {
         this.descricaoCID = descricaoCID;
+    }
+
+    public int getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(int idMedico) {
+        this.idMedico = idMedico;
     }
 
 }
