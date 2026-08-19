@@ -12,8 +12,8 @@ import java.sql.*;
  */
 public class ConnectionFactory {
 
-    private static final String DRIVER = "org.postgres.Driver";
-    private static final String URL = "jdbc:postgresql://localhost:5432/b2_t2";
+    private static final String DRIVER = "org.postgresql.Driver";
+    private static final String URL = "jdbc:postgresql://localhost:5432/bd_t2";
     private static final String USER = "root";
     private static final String PASS = "1234";
 

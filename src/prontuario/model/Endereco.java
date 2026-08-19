@@ -18,6 +18,8 @@ public class Endereco {
     private String siglaTipoLogradouro;
     private String tipoLogradouro;
     private String logradouro;
+    private String compEndereco;
+    private String nroEndereco;
 
     public String getCep() {
         return cep;
@@ -81,6 +83,22 @@ public class Endereco {
 
     public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
+    }
+
+    public String getCompEndereco() {
+        return compEndereco;
+    }
+
+    public void setCompEndereco(String compEndereco) {
+        this.compEndereco = compEndereco;
+    }
+
+    public String getNroEndereco() {
+        return nroEndereco;
+    }
+
+    public void setNroEndereco(String nroEndereco) {
+        this.nroEndereco = nroEndereco;
     }
 
 }
