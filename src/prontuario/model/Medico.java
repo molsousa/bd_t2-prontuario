@@ -12,9 +12,18 @@ import java.util.*;
  */
 public class Medico {
 
+    private int nroMedico;
     private String nomeMedico;
     private String crm;
     private List<EmailMedico> emails;
+
+    public int getNroMedico() {
+        return nroMedico;
+    }
+
+    public void setNroMedico(int nroMedico) {
+        this.nroMedico = nroMedico;
+    }
 
     public String getNomeMedico() {
         return nomeMedico;
@@ -32,11 +41,11 @@ public class Medico {
         this.crm = crm;
     }
 
-    public List getEmails() {
+    public List<EmailMedico> getEmails() {
         return emails;
     }
 
-    public void setEmails(List emails) {
+    public void setEmails(List<EmailMedico> emails) {
         this.emails = emails;
     }
 

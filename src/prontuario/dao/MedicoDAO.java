@@ -7,6 +7,7 @@ package prontuario.dao;
 import prontuario.model.Medico;
 import java.sql.*;
 import prontuario.connection.ConnectionFactory;
+import java.util.*;
 
 /**
  *
@@ -34,5 +35,35 @@ public class MedicoDAO {
         }
         
         return medico;
+    }
+    
+    public List<Medico> listarMedicos() throws SQLException {
+        String sql = "SELECT med.id_medico, med.nome_medico, med.crm "
+                + "FROM \"Medico\" med";
+        
+        List<Medico> medicos = new ArrayList<>();
+        
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while(rs.next()){
+                Medico medico = new Medico();
+                EmailMedicoDAO emMedDAO = new EmailMedicoDAO();
+                
+                medico.setNroMedico(rs.getInt("id_medico"));
+                medico.setNomeMedico(rs.getString("nome_medico"));
+                medico.setCrm(rs.getString("crm"));
+                medico.setEmails(emMedDAO.buscarEmails(medico.getNroMedico()));
+                
+                medicos.add(medico);
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar médicos: " + e.getMessage());
+            throw e;
+        }
+        
+        return medicos;
     }
 }

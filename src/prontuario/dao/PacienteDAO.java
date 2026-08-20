@@ -7,6 +7,7 @@ package prontuario.dao;
 import prontuario.connection.ConnectionFactory;
 import prontuario.model.Paciente;
 import java.sql.*;
+import java.util.*;
 
 /**
  *
@@ -42,5 +43,30 @@ public class PacienteDAO {
         }
         
         return paciente;
+    }
+    
+    public List<Paciente> listarPacientes() throws SQLException {
+        String sql = "SELECT pac.nro_paciente, pac.nome_paciente FROM \"Paciente\" pac";
+        
+        List<Paciente> pacientes = new ArrayList<>();
+        
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while(rs.next()){
+                Paciente paciente = new Paciente();
+                
+                paciente.setNroPaciente(rs.getInt("nro_paciente"));
+                paciente.setNomePaciente(rs.getString("nome_paciente"));
+                
+                pacientes.add(paciente);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar pacientes: " + e.getMessage());
+            throw e;
+        }
+        
+        return pacientes;
     }
 }

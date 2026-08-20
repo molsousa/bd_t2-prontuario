@@ -7,7 +7,7 @@ package prontuario.view;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
+import java.util.logging.Level;
 import prontuario.model.*;
 import prontuario.dao.*;
 
@@ -67,6 +67,7 @@ public class viewPaciente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setText("Digite o número do paciente:");
 
         nroPacienteField.addActionListener(this::nroPacienteFieldActionPerformed);
@@ -74,54 +75,59 @@ public class viewPaciente extends javax.swing.JFrame {
         jButtonConfForm.setText("Ok");
         jButtonConfForm.addActionListener(this::jButtonConfFormActionPerformed);
 
+        jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel2.setText("Nome");
 
         jTextFieldNome.setEditable(false);
+        jTextFieldNome.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextFieldNome.addActionListener(this::jTextFieldNomeActionPerformed);
 
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel3.setText("Data de nascimento");
 
         jTextFieldDataNascimento.setEditable(false);
+        jTextFieldDataNascimento.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextFieldDataNascimento.addActionListener(this::jTextFieldDataNascimentoActionPerformed);
 
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel4.setText("Estado civil");
 
         jTextFieldEstCivil.setEditable(false);
+        jTextFieldEstCivil.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextFieldEstCivil.addActionListener(this::jTextFieldEstCivilActionPerformed);
 
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel5.setText("Documento");
 
         jTextFieldDocumento.setEditable(false);
+        jTextFieldDocumento.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextFieldDocumento.addActionListener(this::jTextFieldDocumentoActionPerformed);
 
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel6.setText("Endereço completo");
 
         jTextFieldEndereco.setEditable(false);
+        jTextFieldEndereco.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextFieldEndereco.addActionListener(this::jTextFieldEnderecoActionPerformed);
 
         jTextFieldSexo.setEditable(false);
+        jTextFieldSexo.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTextFieldSexo.addActionListener(this::jTextFieldSexoActionPerformed);
 
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel7.setText("Sexo");
 
-        jListEmails.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jListEmails.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jScrollPane1.setViewportView(jListEmails);
 
-        jListTelefones.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jListTelefones.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(jListTelefones);
 
         jLabel8.setText("Telefones");
 
         jLabel9.setText("Emails");
 
+        jTableConsultas.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTableConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -135,6 +141,7 @@ public class viewPaciente extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTableConsultas);
 
+        jTableExames.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jTableExames.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -164,7 +171,7 @@ public class viewPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
@@ -188,7 +195,7 @@ public class viewPaciente extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldEndereco))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
@@ -197,7 +204,7 @@ public class viewPaciente extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(348, Short.MAX_VALUE))
+                        .addContainerGap(301, Short.MAX_VALUE))
                     .addComponent(jScrollPane3)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -237,9 +244,9 @@ public class viewPaciente extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -297,11 +304,6 @@ public class viewPaciente extends javax.swing.JFrame {
         DefaultTableModel dftTableModelConsultas = (DefaultTableModel) jTableConsultas.getModel();
         DefaultTableModel dftTableModelExames = (DefaultTableModel) jTableExames.getModel();
         
-        //DefaultListModel dftListModelTelefones = (DefaultListModel) jListTelefones.getModel();
-        //DefaultListModel dftListModelEmails = (DefaultListModel) jListEmails.getModel();
-        
-        
-        
         Paciente paciente = new Paciente();
         Medico medico = new Medico();
         List<String> telefones = new ArrayList<>();
@@ -357,8 +359,10 @@ public class viewPaciente extends javax.swing.JFrame {
                     dftTableModelConsultas.addRow(new Object[]{
                         consulta.getCodConsulta(),
                         consulta.getDataConsulta(),
-                        (medDAO.buscarMedico(consulta.getIdMedico())).getNomeMedico(),
-                        consulta.getDescricaoCID()
+                        (
+                                (medDAO.buscarMedico(consulta.getIdMedico())).getNomeMedico()
+                        ),
+                        consulta.getCodCID()+"-"+consulta.getDescricaoCID()
                     });
                 }
                 
@@ -366,14 +370,14 @@ public class viewPaciente extends javax.swing.JFrame {
                     dftTableModelExames.addRow(new Object[]{
                         exame.getNroExame(),
                         exame.getDataExame(),
-                        exame.getObversacaoExame(),
                         exame.getNomeExame(),
-                        exame.getDescricaoResultadoExame()
+                        exame.getDescricaoResultadoExame(),
+                        exame.getObversacaoExame()
                     });
                 }
             }
         } catch (SQLException ex) {
-            System.getLogger(viewPaciente.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonConfFormActionPerformed
 
